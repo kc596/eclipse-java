@@ -14,9 +14,8 @@ public class Template {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
-		final long start = System.currentTimeMillis();
-		Task1 solver=new Task1();		
-		solver.solve(in, out);
+		final long start = System.currentTimeMillis();		
+		new Task1().solve(in, out);
 		@SuppressWarnings("unused")
 		final long duration = System.currentTimeMillis()-start;
 		out.close();
@@ -54,5 +53,8 @@ public class Template {
 		public double nextDouble(){
 			return Double.parseDouble(next());
 		}
+		public String nextLine() throws IOException{
+            return reader.readLine();
+        }
 	}
 }
