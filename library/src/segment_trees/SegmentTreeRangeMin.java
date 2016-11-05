@@ -25,17 +25,17 @@ public class SegmentTreeRangeMin{
 		segTree[pos]=Math.min(segTree[2*pos+1], segTree[2*pos+2]);
 	}
 
-	int rangeMinQuery(int lo, int hi, int qlo, int qhi, int pos){
+	public int query(int lo, int hi, int qlo, int qhi, int pos){
 		if(qlo>hi || qhi<lo) return Integer.MAX_VALUE;
 		else if(qlo<=lo && qhi>=hi) return segTree[pos];
 		int mid=lo+(hi-lo)/2;
 		return Math.min(
-				rangeMinQuery(lo, mid, qlo, qhi, 2*pos+1),
-				rangeMinQuery(mid+1, hi, qlo, qhi, 2*pos+2)
+				query(lo, mid, qlo, qhi, 2*pos+1),
+				query(mid+1, hi, qlo, qhi, 2*pos+2)
 				);
 	}
 
-	void updateSegmentTree(int lo, int hi, int index, int value, int pos){
+	public void updateSegmentTree(int lo, int hi, int index, int value, int pos){
 		if(lo==hi){
 			segTree[pos]=value;
 			return;
@@ -46,6 +46,18 @@ public class SegmentTreeRangeMin{
 		segTree[pos]=Math.min(segTree[2*pos+1], segTree[2*pos+2]);
 	}
 
+	public void updateRange(int lo, int hi, int qlo, int qhi, int value, int pos){ //each node += value
+		if(lo>hi || qlo>hi || qhi<lo) return;
+		else if(lo==hi){
+			segTree[pos]+=value;
+			return;
+		}
+		int mid=lo+(hi-lo)/2;
+		updateRange(lo, mid, qlo, qhi, value, 2*pos+1);
+		updateRange(mid+1, hi, qlo, qhi, value, 2*pos+1);
+		segTree[pos]=Math.min(segTree[2*pos+1], segTree[2*pos+2]);
+	}
+	
 	private static int pow(int a, int b){
 		int result = 1, MOD=Integer.MAX_VALUE;
 		while (b>0){

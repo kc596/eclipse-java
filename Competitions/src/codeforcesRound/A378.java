@@ -1,4 +1,4 @@
-package nitsMashup;
+package codeforcesRound;
 
 /**
  * @author Kunal
@@ -9,54 +9,38 @@ import java.io.PrintWriter;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class A1 {
+public class A378 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
-		Task solver = new Task();
-		solver.solve(in, out);
+		final long start = System.currentTimeMillis();
+		new Task1().solve(in, out);
+		@SuppressWarnings("unused")
+		final long duration = System.currentTimeMillis() - start;
 		out.close();
 	}
 
-	static class Task {
+	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			Scanner sc=new Scanner(System.in);
-			int t=sc.nextInt();
-			sc.nextLine();
-			String la="lala.";
-			String me="miao.";
-			String omg="OMG>.< I don't know!";
-			String freda="Freda's";
-			String rain="Rainbow's";
-			
-			for(int i=0; i<t; i++){
-				String s=sc.nextLine();
+			String s=in.next();
+			s+='A';
+			int dis = 0, curr=0;
+			for(int i=0; i<s.length(); i++){
+				curr++;
 				
-				int n=s.length();
-				if(n>=5){
-					if(s.substring(n-5).equals(la)){
-						if(s.substring(0, 5).equals(me)){
-							out.println(omg);
-						}
-						else{
-							out.println(freda);
-						}
-					}
-					else{
-						if(s.substring(0,5).equals(me)){
-							out.println(rain);
-						}
-						else{
-							out.println(omg);
-						}
-					}
+				if(isVowel(s.charAt(i))){
+					//System.out.print(" yes ");
+					dis = Math.max(dis, curr);
+					curr = 0;
 				}
-				else out.println(omg);
+				//System.out.print(dis+" ");
 			}
-			sc.close();
+			out.println(dis);
+		}
+		static boolean isVowel(char c){
+			return (c=='A'||c=='E'||c=='I'||c=='O'||c=='U'||c=='Y');
 		}
 	}
 
@@ -82,6 +66,14 @@ public class A1 {
 
 		public int nextInt() {
 			return Integer.parseInt(next());
+		}
+
+		public long nextLong() {
+			return Long.parseLong(next());
+		}
+
+		public double nextDouble() {
+			return Double.parseDouble(next());
 		}
 	}
 }

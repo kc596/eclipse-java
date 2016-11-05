@@ -1,4 +1,4 @@
-package codechef;
+package codeforcesRound;
 
 /**
  * @author Kunal
@@ -11,12 +11,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class AssamUnivChallenge16 {
+public class B377 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
 		final long start = System.currentTimeMillis();
-		new Task1().solve(in, out);
+		Task1 solver = new Task1();
+		solver.solve(in, out);
 		@SuppressWarnings("unused")
 		final long duration = System.currentTimeMillis() - start;
 		out.close();
@@ -24,19 +25,35 @@ public class AssamUnivChallenge16 {
 
 	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			int t=in.nextInt();
-			while(t-->0){
-				int temp,n=in.nextInt();
-				int zero=0, one=0;
-				for(int i=0; i<n; i++){
-					temp=in.nextInt();
-					if(temp==0) zero++;
-					else if(temp==1) one++;
-				}
-				if(zero%2==0 && one%2==0) out.println(0);
-				else if(zero%2==0) out.println(one);
-				else if(one%2==0) out.println(zero);
+			int n=in.nextInt(), k=in.nextInt(), left=0;
+			int[] a=new int[n+2];
+			a[n]=a[0]=k;
+			
+			for(int i=1; i<=n; i++){
+				a[i]=in.nextInt();
 			}
+			
+			if(n<=1){
+				out.println(0);
+				for(int i=1; i<=n; i++) out.print(a[i]+" ");
+				out.println();
+				return;
+			}
+			
+			int prev=1, curr=2, temp;
+			while(curr<=(n)){
+				if(a[prev]+a[curr]<k){
+					temp=k-(a[prev]+a[curr]);
+					a[curr]+=temp;
+					left+=temp;
+				}
+				prev++; curr++;
+			}
+			
+			out.println(left);
+			for(int i=1; i<=n; i++) out.print(a[i]+" ");
+			out.println();
+			
 		}
 	}
 

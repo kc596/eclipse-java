@@ -1,55 +1,52 @@
-package nitsMashup;
+package codeforcesRound;
 
 /**
- * @author Kunal
- *
+ * @author kunal05
  */
 
-import java.io.PrintWriter;
-import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class A3 {
+public class B376 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
-		PrintWriter out = new PrintWriter(System.out);
-		final long start = System.currentTimeMillis();
-		Task1 solver = new Task1();
-		solver.solve(in, out);
-		@SuppressWarnings("unused")
-		final long duration = System.currentTimeMillis() - start;
+		PrintWriter out = new PrintWriter(System.out);	
+		new Task1().solve(in, out);
 		out.close();
 	}
-
+	
 	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			int n=in.nextInt();
-			int[] a=new int[n-1];
-			int[] sum=new int[n];
-			sum[0]=0;
-			
-			for(int i=0; i<n-1; i++){
-				a[i]=in.nextInt();
-				sum[i+1]=sum[i]+a[i];
+			int n=in.nextInt(), prev, curr, rem=0;
+			boolean status=true;
+			prev=in.nextInt();
+			if(n==1){
+				if(prev%2==0) out.println("YES");
+				else out.println("NO");
+				return;
 			}
-			
-			int aa=in.nextInt();
-			int bb=in.nextInt();
-			out.println(sum[bb-1]-sum[aa-1]);
+			rem=prev%2;
+			for(int i=1; i<n; i++){
+				curr=in.nextInt();
+				if(rem==1) curr--;
+				if(curr<0) status=false;
+				rem=curr%2;
+			}
+			if(rem==1) status=false;
+			if(status) out.println("YES");
+			else out.println("NO");
 		}
 	}
-
 	static class InputReader {
 		public BufferedReader reader;
 		public StringTokenizer tokenizer;
-
 		public InputReader() {
 			reader = new BufferedReader(new InputStreamReader(System.in));
 			tokenizer = null;
 		}
-
 		public String next() {
 			while (tokenizer == null || !tokenizer.hasMoreTokens()) {
 				try {
@@ -60,17 +57,17 @@ public class A3 {
 			}
 			return tokenizer.nextToken();
 		}
-
 		public int nextInt() {
 			return Integer.parseInt(next());
 		}
-
-		public long nextLong() {
+		public long nextLong(){
 			return Long.parseLong(next());
 		}
-
-		public double nextDouble() {
+		public double nextDouble(){
 			return Double.parseDouble(next());
 		}
+		public String nextLine() throws IOException{
+            return reader.readLine();
+        }
 	}
 }

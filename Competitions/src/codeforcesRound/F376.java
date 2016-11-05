@@ -1,4 +1,4 @@
-package hackerearth;
+package codeforcesRound;
 
 /**
  * @author Kunal
@@ -9,51 +9,44 @@ import java.io.PrintWriter;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Epiphany6 {
+public class F376 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
 		final long start = System.currentTimeMillis();
-		new Task1().solve(in, out);
+		Task1 solver = new Task1();
+		solver.solve(in, out);
 		@SuppressWarnings("unused")
 		final long duration = System.currentTimeMillis() - start;
 		out.close();
 	}
 
 	static class Task1 {
-		ArrayList<Long> sum=new ArrayList<Long>();
+		static final int MAX=200000;
 		public void solve(InputReader in, PrintWriter out) {
-			long n=in.nextLong(), k=in.nextLong(), m=in.nextLong(), temp=0;
+			int n=in.nextInt();
+			long sum=0;
+			Integer[] a=new Integer[n];
 			
-			for(int i=1; i<=Math.min(m, n); i++){
-				long a=(( ((n-i+1)%m)*(expo(i,k,m)%m) )%m);
-				temp=(temp+a)%m;
-				sum.add(temp);
+			for(int i=0; i<n; i++){
+				a[i]=in.nextInt();
+				sum+=a[i];
 			}
-			long ans=((n/m)*temp)%m;
-			if((n%m)>0){
-				ans+=sum.get((int)((n%m)-1))%m;
-				ans=ans%m;
+			Arrays.sort(a);
+			if(a[0]==1){out.println(sum); return; }
+			long sum2=sum;
+			for(int i=0; i<n; i++){
+				sum2=a[i];
+				for(int j=i+1; j<n; j++){
+					sum2+=a[j]-(a[j]%a[i]);
+				}
+				sum-=a[i];
+				if(sum2>=sum) break;
 			}
-			out.println(ans);
-		}
-		long expo(long a, long b, long MOD){
-			long result = 1;
-			while (b>0){
-				if (b%2==1) result=(result*a)%MOD;
-				b>>=1;
-				a=(a*a)%MOD;
-			}
-			return result%MOD;
-		}
-	}
-	
-	static class Task2 {
-		public void solve(InputReader in, PrintWriter out) {
-			//
+			out.println(sum2);
 		}
 	}
 

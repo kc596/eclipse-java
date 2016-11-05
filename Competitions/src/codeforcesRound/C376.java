@@ -1,4 +1,4 @@
-package nitsMashup;
+package codeforcesRound;
 
 /**
  * @author Kunal
@@ -9,10 +9,9 @@ import java.io.PrintWriter;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class B3 {
+public class C376 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
@@ -26,22 +25,18 @@ public class B3 {
 
 	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			int n=in.nextInt();
-			int m=in.nextInt();
-			int a[]=new int[n];
-			
-			for(int i=0; i<n; i++){
-				a[i]=in.nextInt();
-			}
-			
-			Arrays.sort(a);
-			long sum=0;
-			if(m>n) m=n;
+			int n=in.nextInt(), m=in.nextInt(), k=in.nextInt();
+			int[] socks=new int[n+1];
+			int[] hash=new int[k+1];
+			for(int i=1; i<=n; i++) socks[i]=in.nextInt();
 			
 			for(int i=0; i<m; i++){
-				if(a[i]<0) sum=sum-a[i];
+				int l=in.nextInt(), r=in.nextInt();
+				if(socks[l]!=socks[r]){
+					hash[socks[l]]++;
+					hash[socks[r]]++;
+				}
 			}
-			out.println(sum);
 		}
 	}
 

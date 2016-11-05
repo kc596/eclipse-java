@@ -1,5 +1,9 @@
-package nitsMashup;
+package codeforcesRound;
 
+/**
+ * @author Kunal
+ *
+ */
 
 import java.io.PrintWriter;
 import java.io.InputStreamReader;
@@ -7,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class B2 {
+public class A377 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
@@ -21,19 +25,23 @@ public class B2 {
 
 	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			int n=in.nextInt();
-			int[] a=new int[n];
-			for(int i=0; i<n; i++) a[i]=in.nextInt();
-			
-			int max=1, curr=1;
-			for(int i=1; i<n; i++){
-				if(a[i]>=a[i-1]) curr++;
-				else{
-					max=Math.max(max, curr);
-					curr=1;
+			long k=in.nextLong(), r=in.nextLong(), ans=1, mod, temp;
+			if(k%10==0 || k%10==r){
+				out.println(1);
+				return;
+			}
+			else{
+				mod=k%10;
+				temp=k;
+				while(mod!=r && mod!=0){
+					temp+=k;
+					ans++;
+					mod=temp%10;
+					temp=temp%10000;
+					//System.out.println(mod);
 				}
 			}
-			out.println(Math.max(curr, max));
+			out.println(ans);
 		}
 	}
 

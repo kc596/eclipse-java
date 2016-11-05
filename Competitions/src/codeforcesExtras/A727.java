@@ -1,5 +1,4 @@
-package hackerrank;
-
+package codeforcesExtras;
 
 /**
  * @author Kunal
@@ -7,55 +6,51 @@ package hackerrank;
  */
 
 import java.io.PrintWriter;
-import java.math.BigInteger;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Stack;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
-public class HourRank13 {
+public class A727 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
 		final long start = System.currentTimeMillis();
-		new Task2().solve(in, out);
+		Task1 solver = new Task1();
+		solver.solve(in, out);
 		@SuppressWarnings("unused")
 		final long duration = System.currentTimeMillis() - start;
-		//out.println(duration);
 		out.close();
 	}
 
 	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			BigInteger n=new BigInteger(in.next());
-			String s=n.toString(2);
-			long ans=1;
-			if(n.equals(BigInteger.ONE)){out.println(1); return; }
-			for(int i=0; i<s.length(); i++){
-				if(s.charAt(i)=='0') ans*=2;
-			}
-			out.println(ans);
-		}
-	}
-	
-	static class Task2 {
-		static final int MAX=46342;
-		public void solve(InputReader in, PrintWriter out) {
-			TreeSet<Long> answer=new TreeSet<Long>();
-			for(int i=2; i<MAX; i++){
-				for(int j=i+1; j<MAX; j++){
-					if((i*j)>MAX) break;
-					if(j%i!=0) answer.add((long) (i*j));
+			int a=in.nextInt(), b=in.nextInt();
+			Stack<Integer> s=new Stack<Integer>();
+			s.push(b);
+			while(b>a){
+				if(b%10==1){
+					b=b/10;
+					s.push(b);
+				}
+				else if(b%2==0){
+					b=b/2;
+					s.push(b);
+				}
+				else{
+					break;
 				}
 			}
-			Long[] ans=answer.toArray(new Long[answer.size()]);
-			long n=in.nextInt();
-			out.println(ans[0]+" "+ans[1]+" "+ans[2]+" "+ans[answer.size()-1]);
-			int pos=Arrays.binarySearch(ans, n);
-			if(pos>=0) out.println(pos+1);
-			else if(pos<0) out.println(-(pos+1));
+			if(b==a){
+				out.println("YES");
+				out.println(s.size());
+				while(!s.isEmpty()){
+					out.print(s.pop()+" ");
+				}
+				out.println();
+			}
+			else out.println("NO");
 		}
 	}
 

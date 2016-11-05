@@ -1,4 +1,4 @@
-package nitsMashup;
+package codeforcesExtras;
 
 /**
  * @author Kunal
@@ -11,62 +11,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-public class C {
+public class E727 {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
-		Task solver = new Task();
+		final long start = System.currentTimeMillis();
+		Task1 solver = new Task1();
 		solver.solve(in, out);
+		@SuppressWarnings("unused")
+		final long duration = System.currentTimeMillis() - start;
 		out.close();
 	}
 
-	static class Task {
+	static class Task1 {
 		public void solve(InputReader in, PrintWriter out) {
-			Long p=in.nextLong();
-			Long q=in.nextLong();
 			
-			int n=in.nextInt();	//height
-			Long[] a=new Long[n];
-			
-			for(int i=0; i<n; i++){
-				a[i]=in.nextLong();
-			}
-			
-			double temp,num=1.0, den=(double)a[n-1], gcd;
-			for(int i=n-2; i>=0; i--){
-				num=((den*a[i])+num);
-				gcd=GCD(num, den);
-				num/=gcd;
-				den=den/gcd;
-				
-				temp=num;
-				num=den;
-				den=temp;
-			}
-			//out.println(den+" "+num);
-			if(num==0){
-				if(q==0) out.println("YES");
-				else out.println("NO");
-			}
-			else if(den==0){
-				if(p==0) out.println("YES");
-				else out.println("NO");
-			}
-			else if(den==(double)p && num==(double)q) out.println("YES");
-			else out.println("NO");
-			
-			out.println(den+" "+num);
-		}
-		
-		double GCD(double a, double b ) {
-		    double r;
-		     
-		    while (b>0) {
-		        r = a % b;
-		        a = b;
-		        b = r;
-		    }
-		    return a;
 		}
 	}
 
@@ -93,9 +52,13 @@ public class C {
 		public int nextInt() {
 			return Integer.parseInt(next());
 		}
-		
-		public Long nextLong() {
+
+		public long nextLong() {
 			return Long.parseLong(next());
+		}
+
+		public double nextDouble() {
+			return Double.parseDouble(next());
 		}
 	}
 }
