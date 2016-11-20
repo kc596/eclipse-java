@@ -1,43 +1,52 @@
-package library;
+package algorithms;
 
 /**
- * @author kunal05
+ * @author Kunal
+ *
  */
 
+import java.io.PrintWriter;
+import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class Template {
+public class TowerBreakers {
 	public static void main(String[] args) {
 		InputReader in = new InputReader();
 		PrintWriter out = new PrintWriter(System.out);
-		final long start = System.currentTimeMillis();		
-		new Task1().solve(in, out);
+		final long start = System.currentTimeMillis();
+		Task1 solver = new Task1();
+		solver.solve(in, out);
 		@SuppressWarnings("unused")
-		final long duration = System.currentTimeMillis()-start;
+		final long duration = System.currentTimeMillis() - start;
 		out.close();
 	}
-	
-	static class Task1{
-		public void solve(InputReader in, PrintWriter out){
-			PriorityQueue<Integer> Q = new PriorityQueue<Integer>();
-			Q.remove();
+
+	static class Task1 {
+		static final int MAX = 1000001;
+		public void solve(InputReader in, PrintWriter out) {		
+			int t = in.nextInt();
+			while(t-->0){
+				int n = in.nextInt(), m = in.nextInt();
+				if(m==1 || (n&1)==0){
+					out.println(2);
+				} else if((n&1)==1){
+					out.println(1);
+				}
+			}
 		}
 	}
-	
+
 	static class InputReader {
 		public BufferedReader reader;
 		public StringTokenizer tokenizer;
-		
+
 		public InputReader() {
 			reader = new BufferedReader(new InputStreamReader(System.in));
 			tokenizer = null;
 		}
-		
+
 		public String next() {
 			while (tokenizer == null || !tokenizer.hasMoreTokens()) {
 				try {
@@ -48,41 +57,17 @@ public class Template {
 			}
 			return tokenizer.nextToken();
 		}
-		
+
 		public int nextInt() {
 			return Integer.parseInt(next());
 		}
-		
+
 		public long nextLong() {
 			return Long.parseLong(next());
 		}
-		
+
 		public double nextDouble() {
 			return Double.parseDouble(next());
 		}
-		
-		public String nextLine() {
-			String s=null;
-			try{
-				s = reader.readLine();
-			} catch(IOException e){
-				throw new RuntimeException(e);
-			}
-			return s;
-        }
-		
-		public String nextParagraph() {
-			String line=null;
-			String ans = "";
-			try{
-				while ((line = reader.readLine()) != null) {
-				ans += line;
-				}
-			} catch(IOException e){
-				throw new RuntimeException(e);
-			}
-			return ans;
-		}
-		
 	}
 }
